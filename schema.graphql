@@ -1,0 +1,38 @@
+schema {
+    query: Query
+}
+
+"Represents all of the queryable entry points."
+type Query {
+    unitByName(name: String!): Unit
+    units: [Unit]
+    evaluate(expression: String!):String!
+}
+
+"A unit of measure that describes some physical property."
+type Unit {
+    name: String!
+    pluralName: String!
+    measureOf: Property
+    partOf: System
+}
+
+"A physical property that is described by a unit of measure."
+enum Property {
+    length
+    mass
+    volume
+    density
+    time
+    temperature
+    pressure
+    bytes
+}
+
+"All units are part of a system of measurement."
+enum System {
+    metric
+    imperial
+    us
+    none
+}
