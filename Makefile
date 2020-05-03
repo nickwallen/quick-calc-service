@@ -5,7 +5,7 @@ test:
 	.githooks/pre-commit
 
 run:
-	go run main.go
+	go run cmd/server/main.go
 
 clean:
 	go clean "./..."

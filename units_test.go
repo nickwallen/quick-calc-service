@@ -1,4 +1,4 @@
-package main
+package service
 
 import (
 	"github.com/bcicen/go-units"
@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestPhyPropFromString(t *testing.T) {
+func TestNewProperty(t *testing.T) {
 	cases := map[string]Property{
 		"meters":      Length,
 		"kilometers":  Length,
@@ -27,12 +27,12 @@ func TestPhyPropFromString(t *testing.T) {
 	}
 }
 
-func TestPhyPropFromString_Error(t *testing.T) {
+func TestNewProperty_Error(t *testing.T) {
 	_, err := NewProperty("invalidUnit")
 	assert.NotNil(t, err)
 }
 
-func TestSystemFromString(t *testing.T) {
+func TestNewSystem(t *testing.T) {
 	cases := map[string]System{
 		"meters":      Metric,
 		"kilometers":  Metric,
@@ -53,7 +53,7 @@ func TestSystemFromString(t *testing.T) {
 	}
 }
 
-func TestSystemFromString_Error(t *testing.T) {
+func TestNewSystem_Error(t *testing.T) {
 	_, err := NewSystem("invalid")
 	assert.NotNil(t, err)
 }

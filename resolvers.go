@@ -1,12 +1,34 @@
-package main
+package service
 
 import (
 	"github.com/bcicen/go-units"
+	"github.com/graph-gophers/graphql-go"
 	calc "github.com/nickwallen/quick-calc"
+	"io/ioutil"
+	"path/filepath"
 )
 
 // Resolver The base resolver required for graphql resolution.
 type Resolver struct{}
+
+// Schema Returns the graphQL schema to use.
+func Schema() (schema *graphql.Schema, err error) {
+	bytes, err := readFile("./schema.graphql")
+	if err != nil {
+		return schema, err
+	}
+	schemaDef := string(bytes)
+	schema = graphql.MustParseSchema(schemaDef, &Resolver{}, graphql.UseStringDescriptions())
+	return schema, nil
+}
+
+func getSchema(path string) (string, error) {
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		return "", err
+	}
+	return string(b), nil
+}
 
 // UnitByName Finds a unit by its name. Required for graphql resolution.
 func (r *Resolver) UnitByName(args struct{ Name string }) (*Unit, error) {
@@ -47,4 +69,16 @@ func (r *Resolver) Evaluate(args struct{ Expr string }) (Result, error) {
 
 	result = Result{amount.Value, unit}
 	return result, nil
+}
+
+func readFile(relativePath string) (contents []byte, err error) {
+	path, _ := filepath.Abs(relativePath)
+	if err != nil {
+		return contents, err
+	}
+	page, err := ioutil.ReadFile(path)
+	if err != nil {
+		return contents, err
+	}
+	return page, nil
 }

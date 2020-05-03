@@ -1,4 +1,4 @@
-package main
+package service
 
 import (
 	"github.com/graph-gophers/graphql-go"

@@ -4,22 +4,31 @@ schema {
 
 "Represents all of the queryable entry points."
 type Query {
+    "Lookup the unit of measure with the given name."
     unitByName(name: String!): Unit
+    "Returns all units of measure."
     units: [Unit]
+    "Evaluates an expression. For example, `2 l + 2 ml in gallons`."
     evaluate(expr: String!):Result!
 }
 
 "The result of evaluating an expression."
 type Result {
+    "The numeric value of the result."
     value: Float
+    "The units of measure of the result."
     units: Unit
 }
 
 "A unit of measure that describes some physical property."
 type Unit {
+    "The name of the unit of measure. For example meter, kilogram or liter."
     name: String!
+    "The plural name of the unit of measure. For example meters, kilograms, or liters."
     pluralName: String!
+    "The physical property that is described by the unit of measure. For example length, mass or volume. "
     measureOf: Property
+    "The system of measurement that the unit is part of. For example metric, imperial or us."
     partOf: System
 }
 
