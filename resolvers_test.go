@@ -15,8 +15,8 @@ func schema(t *testing.T) *graphql.Schema {
 
 func runTest(t *testing.T, query string, expected string) {
 	gqltesting.RunTest(t, &gqltesting.Test{
-		Schema: schema(t),
-		Query: query,
+		Schema:         schema(t),
+		Query:          query,
 		ExpectedResult: expected,
 	})
 }
@@ -36,7 +36,7 @@ func TestEvaluate(t *testing.T) {
 					}
 				}
 			}
-		`:`
+		`: `
 			{
 				"evaluate": {
 					"value": 2004,
@@ -59,7 +59,7 @@ func TestEvaluate(t *testing.T) {
 					}
 				}
 			}
-		`:`
+		`: `
 			{
 				"evaluate": {
 					"value": 2004,
@@ -87,7 +87,7 @@ func TestUnitsByName(t *testing.T) {
 						partOf
 					}
 			}
-		`:`
+		`: `
 			{
 				"unitByName": {
 					"name": "liter",

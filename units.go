@@ -8,6 +8,7 @@ import (
 // Property A physical property that is described by a unit of measure.
 type Property string
 
+// Physical properties that can be measured.
 const (
 	Length      Property = "length"
 	Mass        Property = "mass"
@@ -19,6 +20,7 @@ const (
 	Bytes       Property = "bytes"
 )
 
+// NewProperty Create a new property.
 func NewProperty(name string) (Property, error) {
 	var prop Property
 	switch name {
@@ -44,6 +46,7 @@ func NewProperty(name string) (Property, error) {
 	return prop, nil
 }
 
+// String Stringify a Property.
 func (p Property) String() string {
 	return string(p)
 }
@@ -51,6 +54,7 @@ func (p Property) String() string {
 // System All units are part of a system of measurement.
 type System string
 
+// The systems of measurement.
 const (
 	None     = "none"
 	Metric   = "metric"
@@ -58,6 +62,7 @@ const (
 	US       = "us"
 )
 
+// NewSystem Create a new system of measurement.
 func NewSystem(name string) (System, error) {
 	var system System
 	switch name {
@@ -75,6 +80,7 @@ func NewSystem(name string) (System, error) {
 	return system, nil
 }
 
+// String Stringify a System.
 func (s System) String() string {
 	return string(s)
 }
@@ -87,25 +93,8 @@ type Unit struct {
 	partOf     System
 }
 
-func (u Unit) Name() string {
-	return u.name
-}
-
-func (u Unit) PluralName() string {
-	return u.pluralName
-}
-
-func (u Unit) MeasureOf() *string {
-	measureOf := u.measureOf.String()
-	return &measureOf
-}
-
-func (u Unit) PartOf() *string {
-	partOf := u.partOf.String()
-	return &partOf
-}
-
-func UnitFromString(input string) (Unit, error) {
+// NewUnit Creates a Unit from the name of the unit.
+func NewUnit(input string) (Unit, error) {
 	var result Unit
 	u, err := units.Find(input)
 	if err != nil {
@@ -131,16 +120,40 @@ func UnitFromString(input string) (Unit, error) {
 	return result, nil
 }
 
+// Name The name of a Unit. Required for resolution with graphql.
+func (u Unit) Name() string {
+	return u.name
+}
+
+// PluralName the plural name of a Unit. Required for resolution with graphql.
+func (u Unit) PluralName() string {
+	return u.pluralName
+}
+
+// MeasureOf The unit measures which physical property? Required for resolution with graphql.
+func (u Unit) MeasureOf() *string {
+	measureOf := u.measureOf.String()
+	return &measureOf
+}
+
+// PartOf The unit is 'part-of' what system of measurement? Required for resolution with graphql.
+func (u Unit) PartOf() *string {
+	partOf := u.partOf.String()
+	return &partOf
+}
+
 // Result The result of evaluating an expression.
 type Result struct {
 	value float64
 	units Unit
 }
 
+// Value The value of the result. Required for resolution with graphql.
 func (r Result) Value() *float64 {
 	return &r.value
 }
 
+// Units The units of the result. Required for resolution with graphql.
 func (r Result) Units() *Unit {
 	return &r.units
 }
