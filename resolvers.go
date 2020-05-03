@@ -67,7 +67,7 @@ func (r *Resolver) Evaluate(args struct{ Expr string }) (Result, error) {
 		return result, err
 	}
 
-	result = Result{amount.Value, unit}
+	result = Result{amount.Value, unit, args.Expr}
 	return result, nil
 }
 

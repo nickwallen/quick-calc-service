@@ -146,6 +146,7 @@ func (u Unit) PartOf() *string {
 type Result struct {
 	value float64
 	units Unit
+	expr  string
 }
 
 // Value The value of the result. Required for resolution with graphql.
@@ -156,4 +157,9 @@ func (r Result) Value() *float64 {
 // Units The units of the result. Required for resolution with graphql.
 func (r Result) Units() *Unit {
 	return &r.units
+}
+
+// Expr The expression that was evaluated.
+func (r Result) Expr() string {
+	return r.expr
 }

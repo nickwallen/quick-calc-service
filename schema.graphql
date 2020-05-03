@@ -18,6 +18,8 @@ type Result {
     value: Float
     "The units of measure of the result."
     units: Unit
+    "The expression that was evaluated."
+    expr: String!
 }
 
 "A unit of measure that describes some physical property."
