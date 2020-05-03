@@ -130,3 +130,17 @@ func UnitFromString(input string) (Unit, error) {
 	result = Unit{name, pluralName, property, system}
 	return result, nil
 }
+
+// Result The result of evaluating an expression.
+type Result struct {
+	value float64
+	units Unit
+}
+
+func (r Result) Value() *float64 {
+	return &r.value
+}
+
+func (r Result) Units() *Unit {
+	return &r.units
+}

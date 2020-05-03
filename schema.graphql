@@ -6,7 +6,13 @@ schema {
 type Query {
     unitByName(name: String!): Unit
     units: [Unit]
-    evaluate(expression: String!):String!
+    evaluate(expr: String!):Result!
+}
+
+"The result of evaluating an expression."
+type Result {
+    value: Float
+    units: Unit
 }
 
 "A unit of measure that describes some physical property."

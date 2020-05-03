@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/bcicen/go-units"
 	calc "github.com/nickwallen/quick-calc"
 )
@@ -29,10 +28,19 @@ func (r *Resolver) Units() (*[]*Unit, error) {
 	return &result, nil
 }
 
-func (r *Resolver) Evaluate(args struct{ Expression string }) string {
-	result, err := calc.Calculate(args.Expression)
+func (r *Resolver) Evaluate(args struct{ Expr string }) (Result, error) {
+	var result Result
+	amount, err := calc.CalculateAmount(args.Expr)
 	if err != nil {
-		return fmt.Sprintf("%s", err)
+		return result, err
 	}
-	return fmt.Sprintf("%s", result)
+
+	unitName := amount.Units.String()
+	unit, err := UnitFromString(unitName)
+	if err != nil {
+		return result, err
+	}
+
+	result = Result{amount.Value, unit}
+	return result, nil
 }
