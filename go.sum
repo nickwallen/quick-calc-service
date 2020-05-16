@@ -19,6 +19,8 @@ github.com/nickwallen/quick-calc v0.0.0-20200502230634-0d877b3897fc h1:jOkgfBqnm
 github.com/nickwallen/quick-calc v0.0.0-20200502230634-0d877b3897fc/go.mod h1:/r3s39bXzdo0QoJwvV+sIwvet593geOE0APNWaisIGU=
 github.com/nickwallen/quick-calc v0.0.0-20200503001749-a8d16ec8e6ab h1:kmnt1cERE1XXolOQup/Y6ps/i5H+9MyRqUGNyhqgg28=
 github.com/nickwallen/quick-calc v0.0.0-20200503001749-a8d16ec8e6ab/go.mod h1:/r3s39bXzdo0QoJwvV+sIwvet593geOE0APNWaisIGU=
+github.com/nickwallen/quick-calc v0.0.0-20200516133741-643927150da8 h1:DRARmQr39pROiSPjC54GGT60QSamHNB7qb60yHjzCbM=
+github.com/nickwallen/quick-calc v0.0.0-20200516133741-643927150da8/go.mod h1:bU34lUo7WRx/KgBiEQ0056ZciqMqrWeHt8YM71xKCIw=
 github.com/opentracing/opentracing-go v1.1.0 h1:pWlfV3Bxv7k65HYwkikxat0+s3pV4bsqf19k25Ur8rU=
 github.com/opentracing/opentracing-go v1.1.0/go.mod h1:UkNAQd3GIcIGf0SeVgPpRdFStlNbqXla1AfSYxPUl2o=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

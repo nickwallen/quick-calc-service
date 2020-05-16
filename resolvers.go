@@ -61,7 +61,7 @@ func (r *Resolver) Evaluate(args struct{ Expr string }) (Result, error) {
 		return result, err
 	}
 
-	unitName := amount.Units.String()
+	unitName := amount.Units
 	unit, err := NewUnit(unitName)
 	if err != nil {
 		return result, err
