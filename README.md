@@ -37,14 +37,6 @@ A GraphQL-based service for [Quick Calc](https://github.com/nickwallen/quick-cal
       } 
     }
    ```
-   ```
-       "evaluate": {
-         "value": 1148,
-         "units": {
-           "pluralName": "pounds"
-         }
-       }
-   ```
 
 1. List all available units of measure.
     ```
