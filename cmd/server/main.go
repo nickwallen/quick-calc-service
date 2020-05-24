@@ -1,38 +1,73 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	service "github.com/nickwallen/quick-calc-service"
 	"io/ioutil"
 	"net/http"
 	"path/filepath"
 	"time"
 
+	"github.com/gorilla/mux"
+	"github.com/graph-gophers/graphql-go/relay"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/graph-gophers/graphql-go/relay"
-)
-
-const (
-	bindAddr = "localhost:8080"
+	"github.com/rs/cors"
 )
 
 func main() {
+	hostname := flag.String(
+		"host",
+		"",
+		"the hostname to bind to")
+	port := flag.Int(
+		"port",
+		8080,
+		"the port number to bind to")
+	html := flag.String(
+		"html",
+		"cmd/server/index.html",
+		"path to the iGraphQL html")
+	allowedOrigins := flag.String(
+		"allowedOrigins",
+		"*",
+		"origins for CORS requests")
+	allowedHeaders := flag.String(
+		"allowedHeaders",
+		"*",
+		"headers allowed for CORS requests")
+	flag.Parse()
+
 	schema, err := service.Schema()
 	if err != nil {
 		panic(err)
 	}
-	page, err := readFile("cmd/server/index.html")
+
+	router := mux.NewRouter()
+	router.HandleFunc("/", iGraphQL(html))
+	router.Handle("/query", &relay.Handler{Schema: schema}).Methods("GET", "POST", "OPTIONS", "PUT", "HEAD")
+
+	bindAddr := fmt.Sprintf("%s:%d", *hostname, *port)
+	log.WithFields(log.Fields{"time": time.Now()}).Info("Endpoint at http://", bindAddr, "/query")
+	log.WithFields(log.Fields{"time": time.Now()}).Info("GraphiQL at http://", bindAddr)
+
+	corsHandler := cors.New(cors.Options{
+		AllowedOrigins: []string{*allowedOrigins},
+		AllowedHeaders: []string{*allowedHeaders},
+	})
+	log.Fatal(http.ListenAndServe(bindAddr, logged(corsHandler.Handler(router))))
+}
+
+func iGraphQL(htmlPath *string) func(w http.ResponseWriter, r *http.Request) {
+	page, err := readFile(*htmlPath)
 	if err != nil {
 		panic(err)
 	}
-	mux := http.NewServeMux()
-	mux.Handle("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	return func(w http.ResponseWriter, r *http.Request) {
 		w.Write(page)
-	}))
-	mux.Handle("/query", &relay.Handler{Schema: schema})
-	log.WithFields(log.Fields{"time": time.Now()}).Info("starting service on http://", bindAddr, "/query")
-	log.WithFields(log.Fields{"time": time.Now()}).Info("GraphiQL available at http://", bindAddr)
-	log.Fatal(http.ListenAndServe(bindAddr, logged(mux)))
+	}
 }
 
 func readFile(relativePath string) (contents []byte, err error) {
@@ -53,7 +88,7 @@ func logged(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r)
 		log.WithFields(log.Fields{
 			"path":    r.RequestURI,
-			"IP":      r.RemoteAddr,
+			"ip":      r.RemoteAddr,
 			"elapsed": time.Now().UTC().Sub(start),
 		}).Info()
 	})
