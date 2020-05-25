@@ -6,7 +6,9 @@ import (
 	service "github.com/nickwallen/quick-calc-service"
 	"io/ioutil"
 	"net/http"
+	"net/http/httputil"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -25,6 +27,10 @@ func main() {
 		"port",
 		8080,
 		"the port number to bind to")
+	logLevel := flag.String(
+		"logLevel",
+		"Info",
+		"the log level; Trace, Debug, Info, Warn, Error, Fatal, Panic")
 	html := flag.String(
 		"html",
 		"cmd/server/index.html",
@@ -39,6 +45,7 @@ func main() {
 		"headers allowed for CORS requests")
 	flag.Parse()
 
+	setupLogging(*logLevel)
 	schema, err := service.Schema()
 	if err != nil {
 		panic(err)
@@ -57,6 +64,27 @@ func main() {
 		AllowedHeaders: []string{*allowedHeaders},
 	})
 	log.Fatal(http.ListenAndServe(bindAddr, logged(corsHandler.Handler(router))))
+}
+
+func setupLogging(logLevel string) {
+	switch strings.ToLower(logLevel) {
+	case "trace":
+		log.SetLevel(log.TraceLevel)
+	case "debug":
+		log.SetLevel(log.DebugLevel)
+	case "info":
+		log.SetLevel(log.InfoLevel)
+	case "warn":
+		log.SetLevel(log.WarnLevel)
+	case "error":
+		log.SetLevel(log.ErrorLevel)
+	case "fatal":
+		log.SetLevel(log.FatalLevel)
+	case "panic":
+		log.SetLevel(log.PanicLevel)
+	default:
+		panic(fmt.Errorf("unknown log level: %s", logLevel))
+	}
 }
 
 func iGraphQL(htmlPath *string) func(w http.ResponseWriter, r *http.Request) {
@@ -85,11 +113,15 @@ func readFile(relativePath string) (contents []byte, err error) {
 func logged(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now().UTC()
+		reqDump, err := httputil.DumpRequest(r, true)
+		if err != nil {
+			fmt.Println(err)
+		}
 		next.ServeHTTP(w, r)
 		log.WithFields(log.Fields{
-			"path":    r.RequestURI,
 			"ip":      r.RemoteAddr,
-			"elapsed": time.Now().UTC().Sub(start),
+			"elapsed": time.Since(start),
+			"request": fmt.Sprintf("%s", reqDump),
 		}).Info()
 	})
 }

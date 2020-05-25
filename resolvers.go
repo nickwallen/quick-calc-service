@@ -1,9 +1,11 @@
 package service
 
 import (
+	"fmt"
 	"github.com/bcicen/go-units"
 	"github.com/graph-gophers/graphql-go"
 	calc "github.com/nickwallen/quick-calc"
+	log "github.com/sirupsen/logrus"
 	"io/ioutil"
 	"path/filepath"
 )
@@ -68,6 +70,7 @@ func (r *Resolver) Evaluate(args struct{ Expr string }) (Result, error) {
 	}
 
 	result = Result{amount.Value, unit, args.Expr}
+	log.Info(fmt.Sprintf("evaluate(%s) = %.2f %s", args.Expr, result.value, result.units.pluralName))
 	return result, nil
 }
 
