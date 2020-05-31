@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	service "github.com/nickwallen/quick-calc-service"
+	service "github.com/nickwallen/quick-calc/quick-calc-service"
 	"io/ioutil"
 	"net/http"
 	"net/http/httputil"

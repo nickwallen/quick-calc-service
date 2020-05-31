@@ -1,4 +1,3 @@
-![Go](https://github.com/nickwallen/quick-calc-service/workflows/Go/badge.svg?branch=master)
 
 ## Quick Calc Service
 
