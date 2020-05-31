@@ -1,4 +1,4 @@
-module github.com/nickwallen/quick-calc-service
+module github.com/nickwallen/quick-calc/quick-calc-gql
 
 go 1.14
 
@@ -7,7 +7,6 @@ require (
 	github.com/bcicen/go-units v1.0.0
 	github.com/gorilla/mux v1.7.4
 	github.com/graph-gophers/graphql-go v0.0.0-20200309224638-dae41bde9ef9
-	github.com/nickwallen/quick-calc v0.0.0-20200516133741-643927150da8
 	github.com/rs/cors v1.7.0
 	github.com/sirupsen/logrus v1.6.0
 	github.com/stretchr/testify v1.5.1

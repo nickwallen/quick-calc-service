@@ -1,11 +1,14 @@
-all: build test image
+all: clean build test image
 
 build:
 	go build "./..."
 
 test:
-	.githooks/pre-commit
-
+	go fmt ./...
+	go vet ./...
+	golint "-set_exit_status" ./...
+	go test ./...
+    
 run:
 	go run cmd/server/main.go
 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/bcicen/go-units"
 	"github.com/graph-gophers/graphql-go"
-	calc "github.com/nickwallen/quick-calc"
+	calc "github.com/nickwallen/quick-calc/quick-calc-core"
 	log "github.com/sirupsen/logrus"
 	"io/ioutil"
 	"path/filepath"
