@@ -1,3 +1,4 @@
+github.com/Knetic/govaluate v1.5.0 h1:L4MyqdJSld9xr2eZcZHCWLfeIX2SBjqrwIKG1pcm/+4=
 github.com/Knetic/govaluate v3.0.0+incompatible h1:7o6+MAPhYTCF0+fdvoz1xDedhRb4f6s9Tn1Tt7/WTEg=
 github.com/Knetic/govaluate v3.0.0+incompatible/go.mod h1:r7JcOSlj0wfOMncg0iLm8Leh48TZaKVeNIfJntJ2wa0=
 github.com/bcicen/bfstree v0.0.0-20180121191807-11ea469698a6 h1:sZby+ux5+//KgjN0jeYxKFhXWh9h7cKoKSWzN6S3u9I=
@@ -18,6 +19,10 @@ github.com/konsorten/go-windows-terminal-sequences v1.0.3 h1:CE8S1cTafDpPvMhIxNJ
 github.com/konsorten/go-windows-terminal-sequences v1.0.3/go.mod h1:T0+1ngSBFLxvqU3pZ+m/2kptfBszLMUkC4ZK/EgS/cQ=
 github.com/nickwallen/quick-calc v0.0.0-20200516133741-643927150da8 h1:DRARmQr39pROiSPjC54GGT60QSamHNB7qb60yHjzCbM=
 github.com/nickwallen/quick-calc v0.0.0-20200516133741-643927150da8/go.mod h1:bU34lUo7WRx/KgBiEQ0056ZciqMqrWeHt8YM71xKCIw=
+github.com/nickwallen/quick-calc v0.0.1 h1:vqq6nZp1WZAZXqsD1OB2kHCrTwmWRc9VxquZ7cI06ec=
+github.com/nickwallen/quick-calc v0.0.1/go.mod h1:RLosnpLolVX9N3yj2M3gdAbqzPKEHbweFjjoPjCYY5k=
+github.com/nickwallen/quick-calc v0.0.2 h1:oL0d/5jHNpMSNjqKyXgmDx1ELSqZJRzAOiukEVhUUFg=
+github.com/nickwallen/quick-calc v0.0.2/go.mod h1:bU34lUo7WRx/KgBiEQ0056ZciqMqrWeHt8YM71xKCIw=
 github.com/opentracing/opentracing-go v1.1.0 h1:pWlfV3Bxv7k65HYwkikxat0+s3pV4bsqf19k25Ur8rU=
 github.com/opentracing/opentracing-go v1.1.0/go.mod h1:UkNAQd3GIcIGf0SeVgPpRdFStlNbqXla1AfSYxPUl2o=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

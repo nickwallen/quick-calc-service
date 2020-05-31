@@ -1,10 +1,13 @@
-all: build test image
+all: clean build test image
 
 build:
-	go build "./..."
+	go fmt ./...
+	go vet ./...
+	golint "-set_exit_status" ./...
+	go build ./...
 
 test:
-	.githooks/pre-commit
+	go test ./...
 
 run:
 	go run cmd/server/main.go
@@ -13,4 +16,4 @@ image:
 	docker build . --tag quick-calc-service:latest
 
 clean:
-	go clean "./..."
+	go clean ./...

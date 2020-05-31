@@ -24,5 +24,6 @@ CMD ./main \
     -host "0.0.0.0" \
     -port ${PORT_E} \
     -html index.html \
-    -allowedOrigins "'*'"
+    -allowedOrigins "*" \
+    -allowedHeaders "*"
 
